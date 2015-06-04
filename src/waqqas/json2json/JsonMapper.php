@@ -65,24 +65,26 @@ class JsonMapper
                     }
                     break;
                 case 'aggregate':
-                    // get key
-                    // get value
+//                    if (is_array($items)) {
+//
+//                        foreach ($template[$key] as $outputKey => $outputTemplate) {
+//                            foreach ($items as $item) {
+//                                $this->getValue($item, $template["key"]);
+//                            }
+//                            $outputItem->$outputKey = array_reduce()
+//                        }
+//
+//                            foreach ($items as $item) {
+//                            $outputItem = new \StdClass();
+//
+//                            foreach ($template[$key] as $outputKey => $outputTemplate) {
+//                                $outputItem->$outputKey = $this->getValue($item, $outputTemplate);
+//
+//                                array_push($output, $outputItem);
+//                            }
+//                        }
+//                    }
 
-                    if (is_array($items)) {
-                        foreach ($items as $item) {
-                            $outputItem = new \StdClass();
-
-                            foreach ($template[$key] as $outputKey => $outputTemplate) {
-                                $outputItem->$outputKey = $this->getValue($item, $outputTemplate);
-
-                                array_push($output, $outputItem);
-                            }
-                        }
-                    }
-
-                    foreach ($template[$key] as $outputKey => $callable) {
-
-                    }
                     break;
 
             }
