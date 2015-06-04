@@ -1,12 +1,21 @@
 {
   "name": "waqqas/json2json",
   "description": "JSON to JSON conversion based on a template",
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "license": "MIT",
   "authors": [
     {
       "name": "Waqqas Jabbar",
       "email": "waqqas.jabbar@gmail.com"
     }
-  ]
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "@stable"
+  },
+  "autoload": {
+    "psr-0": {"waqqas\\json2json": "src/"}
+  },
+  "require": {
+    "php": ">=5.4"
+  }
 }
