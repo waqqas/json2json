@@ -18,7 +18,7 @@ class JsonMapper
 
     function __construct($helper = null, $context = null)
     {
-        $this->helper = isset($helper)? $helper: new \StdClass();
+        $this->helper = isset($helper) ? $helper : new \StdClass();
         $this->context = $context;
     }
 
@@ -49,7 +49,11 @@ class JsonMapper
         foreach ($template as $key => $value) {
             switch ($key) {
                 case 'path':
-                    $items = (new JSONPath($input))->find("$." . $value . ".*")->data();
+                    print_r($value);
+                    print "\n";
+                    $items = (new JSONPath($input))->find("$." . $value)->data();
+                    $items = $items[0];
+
                     break;
                 case 'as':
                     if (is_array($items)) {
@@ -62,6 +66,19 @@ class JsonMapper
                                 array_push($output, $outputItem);
                             }
                         }
+                    } else if (is_object($items)) {
+                        $output = new \StdClass();
+
+                        foreach ($template[$key] as $outputKey => $outputTemplate) {
+                            if (property_exists($items, $outputTemplate))
+                                $output->$outputKey = $items->$outputTemplate;
+                        }
+
+//                        array_push($output, $outputItem);
+
+//                        foreach ($template[$key] as $outputKey => $outputTemplate) {
+//                            $outputItem->$outputKey = $this->getValue($item, $outputTemplate);
+
                     }
                     break;
                 case 'aggregate':
@@ -86,6 +103,13 @@ class JsonMapper
 //                    }
 
                     break;
+                default:
+                    if( is_array($value)){
+                        $outputItem = new \StdClass();
+                        $outputItem->$key = $this->getValue($input, $value);
+
+                        array_push($output, $outputItem);
+                    }
 
             }
         }
@@ -93,7 +117,8 @@ class JsonMapper
         return $output;
     }
 
-    public function getValue($item, $outputTemplate){
+    public function getValue($item, $outputTemplate)
+    {
         $value = null;
         if (is_array($outputTemplate)) {
             $value = $this->transformArray($item, $outputTemplate);
@@ -102,20 +127,27 @@ class JsonMapper
 
             if (is_callable($outputTemplate)) {
                 $value = call_user_func_array($outputTemplate, array($item, $this->context));
-            }
-            else if (method_exists($this->helper, $outputTemplate)) {
+            } else if (method_exists($this->helper, $outputTemplate)) {
                 $value = call_user_func_array(array($this->helper, $outputTemplate), array($item, $this->context));
-            }
-            else if (array_key_exists($outputTemplate, $item)) {
+            } else if (array_key_exists($outputTemplate, $item)) {
                 $value = $item->$outputTemplate;
-            } else {
-                $itemValue = (new JSONPath($item))->find("$." . $outputTemplate)->data();
-                $itemValue = $itemValue[0];
 
-                $value = $itemValue;
+            } // check if not empty to ensure valid expression
+            else if (!empty($outputTemplate)) {
+                $itemValue = (new JSONPath($item))->find("$." . $outputTemplate)->data();
+                if (!empty($itemValue)) {
+                    $itemValue = $itemValue[0];
+
+                    $value = $itemValue;
+                } else {
+                    $value = $outputTemplate;
+                }
+            } // literal string
+            else {
+                $value = $outputTemplate;
             }
-        }
-        else{
+        } // non string values copied as-is
+        else {
             $value = $outputTemplate;
         }
 
