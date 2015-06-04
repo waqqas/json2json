@@ -4,8 +4,47 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "112c9a127bc249c625ce2d5fbe6d005e",
-    "packages": [],
+    "hash": "148b37784ff8414dea05159cfd71c99e",
+    "packages": [
+        {
+            "name": "flow/jsonpath",
+            "version": "0.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FlowCommunications/JSONPath.git",
+                "reference": "c0ca6a388ff3b1da784de059b948fa5874c26050"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FlowCommunications/JSONPath/zipball/c0ca6a388ff3b1da784de059b948fa5874c26050",
+                "reference": "c0ca6a388ff3b1da784de059b948fa5874c26050",
+                "shasum": ""
+            },
+            "require-dev": {
+                "peekmo/jsonpath": "dev-master",
+                "phpunit/phpunit": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Flow\\JSONPath": "src/",
+                    "Flow\\JSONPath\\Test": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Frank",
+                    "email": "stephen@flowsa.com"
+                }
+            ],
+            "description": "JSONPath implementation for parsing, searching and flattening arrays",
+            "time": "2015-02-26 07:26:33"
+        }
+    ],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",
@@ -967,6 +1006,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "flow/jsonpath": 0,
         "phpunit/phpunit": 0
     },
     "prefer-stable": false,
