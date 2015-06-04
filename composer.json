@@ -1,0 +1,12 @@
+{
+  "name": "waqqas/json2json",
+  "description": "JSON to JSON conversion based on a template",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Waqqas Jabbar",
+      "email": "waqqas.jabbar@gmail.com"
+    }
+  ]
+}
