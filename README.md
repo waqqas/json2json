@@ -6,9 +6,8 @@ This is inspired from JSON2JSON mapper (https://github.com/joelvh/json2json)
 
 #Installation
 
-```
-php composer.phar  require waqqas/json2json dev-master
-```
+You can download the latest version by cloning https://github.com/waqqas/json2json.git
+
 
 # Usage
 
@@ -51,7 +50,7 @@ $template = array(
 4. Get input JSON
 
 ```
-$input = file_get_contents("input1.json");
+$input = file_get_contents("input.json");
 ```
 
 Sample JSON
@@ -169,6 +168,33 @@ Following keywords are supported in template
 
 - "path" 
 - "as"
+
+# String in template, as value
+
+A sting value in template is processed in following order
+
+1. Name of a static function
+2. Name of function on helper class (passed in JsonMapper constructor)
+3. Key on current object that is selected by "path"
+4. JSONPath string relative to current object
+5. Literal string value
+
+# Advanced usage
+
+You can provided a class to the constructor of JsonMapper. This can contain functions that can be specified as string values for mapping. Both static and non-static functions can be specified. Each function is passed two parameters.
+1. Current item object
+2. Context object
+
+```
+class Helper{
+    public function ensureFloat($item){
+        return (float)$item->value;
+    }
+}
+$mapper = new JsonMapper(new Helper());
+```
+
+Context object can be passed as second parameter to constructor.
 
 # Links
 
