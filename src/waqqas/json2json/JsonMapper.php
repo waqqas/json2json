@@ -61,9 +61,8 @@ class JsonMapper
 
                             foreach ($template[$key] as $outputKey => $outputTemplate) {
                                 $outputItem->$outputKey = $this->getValue($item, $outputTemplate);
-
-                                array_push($output, $outputItem);
                             }
+                            array_push($output, $outputItem);
                         }
                     } else if (is_object($items)) {
                         $output = new \StdClass();
