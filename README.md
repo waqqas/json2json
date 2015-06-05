@@ -21,14 +21,13 @@ use waqqas\json2json\JsonMapper;
 
 2. Create mapper object
 
-```php
+```
 $mapper = new JsonMapper();
 ```
 
 3. Define template
 
-```php
-
+```
 $template = array(
     "path" => "data",
     "as" => array(
@@ -51,11 +50,12 @@ $template = array(
 
 4. Get input JSON
 
-```php
+```
 $input = file_get_contents("input1.json");
 ```
 
 Sample JSON
+
 ```
 {
   "data": [
@@ -159,7 +159,7 @@ Sample JSON
 
 5. Transform input
 
-```php
+```
 $output = $mapper->transformJson($input, $template);
 ```
 
