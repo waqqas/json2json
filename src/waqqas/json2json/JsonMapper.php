@@ -49,11 +49,16 @@ class JsonMapper
         foreach ($template as $key => $value) {
             switch ($key) {
                 case 'path':
-                    $items = (new JSONPath($input))->find("$." . $value)->data();
+                    ($value == '.')? $value = '$': $value = "$." . $value;
+
+                    $items = (new JSONPath($input))->find($value)->data();
+                    print_r($items);
+
                     $items = $items[0];
 
                     break;
                 case 'as':
+
                     if (is_array($items)) {
                         $output = array();
                         foreach ($items as $item) {
@@ -65,16 +70,19 @@ class JsonMapper
                             array_push($output, $outputItem);
                         }
                     } else if (is_object($items)) {
-                        $output = new \StdClass();
+//                        $output = new \StdClass();
+
+
 
                         foreach ($template[$key] as $outputKey => $outputTemplate) {
-                            if (property_exists($items, $outputTemplate))
-                                $output->$outputKey = $items->$outputTemplate;
-                            else if (is_callable($outputTemplate)) {
-                                $output->$outputKey = call_user_func_array($outputTemplate, array($items, $this->context));
-                            } else if (method_exists($this->helper, $outputTemplate)) {
-                                $output->$outputKey = call_user_func_array(array($this->helper, $outputTemplate), array($items, $this->context));
-                            }
+                            $output->$outputKey = $this->getValue($items, $outputTemplate);
+//                            if (property_exists($items, $outputTemplate))
+//                                $output->$outputKey = $items->$outputTemplate;
+//                            else if (is_callable($outputTemplate)) {
+//                                $output->$outputKey = call_user_func_array($outputTemplate, array($items, $this->context));
+//                            } else if (method_exists($this->helper, $outputTemplate)) {
+//                                $output->$outputKey = call_user_func_array(array($this->helper, $outputTemplate), array($items, $this->context));
+//                            }
                         }
                     }
                     break;
@@ -106,7 +114,9 @@ class JsonMapper
 
             } // check if not empty to ensure valid expression
             else if (!empty($outputTemplate)) {
-                $itemValue = (new JSONPath($item))->find("$." . $outputTemplate)->data();
+                ($outputTemplate == '.')? $outputTemplate = '$': $outputTemplate = "$." . $outputTemplate;
+
+                $itemValue = (new JSONPath($item))->find($outputTemplate)->data();
                 if (!empty($itemValue)) {
                     $value = $itemValue[0];
                 } else {
