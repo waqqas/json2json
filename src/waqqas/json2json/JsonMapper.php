@@ -24,8 +24,8 @@ class JsonMapper
 
 
     /**
-     * @param $inputJson JSON input string to convert
-     * @param $template Template to use for transformation
+     * @param $inputJson string input string to convert
+     * @param $template array to use for transformation
      * @return string Transformed JSON string
      */
     public function transformJson($inputJson, $template)
@@ -35,28 +35,27 @@ class JsonMapper
 
 
     /**
-     * @param $input input to transform
-     * @param $template Template to use for transformation
+     * @param $input array to transform
+     * @param $template array to use for transformation
      * @return array Transformed array
      */
     public function transformArray($input, $template)
     {
 
-        $output = array();
+        $output = new \StdClass();
 
         $items = null;
 
         foreach ($template as $key => $value) {
             switch ($key) {
                 case 'path':
-                    print_r($value);
-                    print "\n";
                     $items = (new JSONPath($input))->find("$." . $value)->data();
                     $items = $items[0];
 
                     break;
                 case 'as':
                     if (is_array($items)) {
+                        $output = array();
                         foreach ($items as $item) {
                             $outputItem = new \StdClass();
 
@@ -72,43 +71,17 @@ class JsonMapper
                         foreach ($template[$key] as $outputKey => $outputTemplate) {
                             if (property_exists($items, $outputTemplate))
                                 $output->$outputKey = $items->$outputTemplate;
+                            else if (is_callable($outputTemplate)) {
+                                $output->$outputKey = call_user_func_array($outputTemplate, array($items, $this->context));
+                            } else if (method_exists($this->helper, $outputTemplate)) {
+                                $output->$outputKey = call_user_func_array(array($this->helper, $outputTemplate), array($items, $this->context));
+                            }
                         }
-
-//                        array_push($output, $outputItem);
-
-//                        foreach ($template[$key] as $outputKey => $outputTemplate) {
-//                            $outputItem->$outputKey = $this->getValue($item, $outputTemplate);
-
                     }
-                    break;
-                case 'aggregate':
-//                    if (is_array($items)) {
-//
-//                        foreach ($template[$key] as $outputKey => $outputTemplate) {
-//                            foreach ($items as $item) {
-//                                $this->getValue($item, $template["key"]);
-//                            }
-//                            $outputItem->$outputKey = array_reduce()
-//                        }
-//
-//                            foreach ($items as $item) {
-//                            $outputItem = new \StdClass();
-//
-//                            foreach ($template[$key] as $outputKey => $outputTemplate) {
-//                                $outputItem->$outputKey = $this->getValue($item, $outputTemplate);
-//
-//                                array_push($output, $outputItem);
-//                            }
-//                        }
-//                    }
-
                     break;
                 default:
                     if( is_array($value)){
-                        $outputItem = new \StdClass();
-                        $outputItem->$key = $this->getValue($input, $value);
-
-                        array_push($output, $outputItem);
+                        $output->$key = $this->getValue($input, $value);
                     }
 
             }
