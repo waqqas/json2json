@@ -18,5 +18,11 @@
   "require": {
     "php": ">=5.4",
     "flow/jsonpath": "@stable"
-  }
+  },
+  "repositories": [
+    {
+      "url": "https://github.com/waqqas/json2json.git",
+      "type": "git"
+    }
+  ]
 }
