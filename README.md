@@ -7,7 +7,7 @@ This is inspired from JSON2JSON mapper (https://github.com/joelvh/json2json)
 #Installation
 
 ```
-php composer.phar require waqqas\json2json dev-master
+php composer.phar  require waqqas/json2json dev-master
 ```
 
 # Usage
@@ -162,6 +162,13 @@ Sample JSON
 ```
 $output = $mapper->transformJson($input, $template);
 ```
+
+# Supported keywords in template
+
+Following keywords are supported in template
+
+- "path" 
+- "as"
 
 # Links
 

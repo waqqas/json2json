@@ -30,7 +30,7 @@ class JsonMapper
      */
     public function transformJson($inputJson, $template)
     {
-        return json_encode($this->transformArray(json_decode($inputJson), $template), JSON_PRETTY_PRINT);
+        return json_encode($this->transformArray(json_decode($inputJson), $template));
     }
 
 
@@ -109,9 +109,7 @@ class JsonMapper
             else if (!empty($outputTemplate)) {
                 $itemValue = (new JSONPath($item))->find("$." . $outputTemplate)->data();
                 if (!empty($itemValue)) {
-                    $itemValue = $itemValue[0];
-
-                    $value = $itemValue;
+                    $value = $itemValue[0];
                 } else {
                     $value = $outputTemplate;
                 }
