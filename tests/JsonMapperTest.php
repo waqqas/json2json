@@ -21,7 +21,7 @@ class JsonMapperTest extends \PHPUnit_Framework_TestCase
 
         $input = '{"key2": "value2"}';
 
-        // Action
+        // Act
         $output = $mapper->transformJson($input, $template);
 
         // Assert
@@ -45,7 +45,7 @@ class JsonMapperTest extends \PHPUnit_Framework_TestCase
 
         $input = '[{"key2": "value2"}]';
 
-        // Action
+        // Act
         $output = $mapper->transformJson($input, $template);
 
         // Assert
@@ -70,7 +70,7 @@ class JsonMapperTest extends \PHPUnit_Framework_TestCase
 
         $input = '[{"key2": "value2"},{"key2": "value3"}]';
 
-        // Action
+        // Act
         $output = $mapper->transformJson($input, $template);
 
         // Assert
@@ -98,7 +98,7 @@ class JsonMapperTest extends \PHPUnit_Framework_TestCase
 
         $input = '[{"key2": "value2"},{"key2": "value3"}]';
 
-        // Action
+        // Act
         $output = $mapper->transformJson($input, $template);
 
         // Assert
@@ -133,7 +133,7 @@ class JsonMapperTest extends \PHPUnit_Framework_TestCase
 
         $input = '[{"key2": "value2"},{"key2": "value3"}]';
 
-        // Action
+        // Act
         $output = $mapper->transformJson($input, $template);
 
         // Assert

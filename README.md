@@ -196,6 +196,14 @@ $mapper = new JsonMapper(new Helper());
 
 Context object can be passed as second parameter to constructor.
 
-# Links
+# "path" usage
 
-This library support JSON-Path string in "path" keyword. More details are available [here](https://github.com/FlowCommunications/JSONPath)
+path parameter is a JSON-Path string. "$." is not required and added by the library, automatically. Details of JSON-Path is available [here](https://github.com/FlowCommunications/JSONPath).
+"." is special character, which specified the root element or "$" as JSON-Path string. "path" is relative to data selected by the parent node. If the parent node is an array, it's relative to each item.
+
+
+# Caveats
+
+* "path" MUST be specified before the "as", in template
+* input should be a valid JSON
+
