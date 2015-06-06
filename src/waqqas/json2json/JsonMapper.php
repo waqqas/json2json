@@ -52,8 +52,6 @@ class JsonMapper
                     ($value == '.')? $value = '$': $value = "$." . $value;
 
                     $items = (new JSONPath($input))->find($value)->data();
-                    print_r($items);
-
                     $items = $items[0];
 
                     break;
@@ -70,19 +68,8 @@ class JsonMapper
                             array_push($output, $outputItem);
                         }
                     } else if (is_object($items)) {
-//                        $output = new \StdClass();
-
-
-
                         foreach ($template[$key] as $outputKey => $outputTemplate) {
                             $output->$outputKey = $this->getValue($items, $outputTemplate);
-//                            if (property_exists($items, $outputTemplate))
-//                                $output->$outputKey = $items->$outputTemplate;
-//                            else if (is_callable($outputTemplate)) {
-//                                $output->$outputKey = call_user_func_array($outputTemplate, array($items, $this->context));
-//                            } else if (method_exists($this->helper, $outputTemplate)) {
-//                                $output->$outputKey = call_user_func_array(array($this->helper, $outputTemplate), array($items, $this->context));
-//                            }
                         }
                     }
                     break;

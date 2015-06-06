@@ -25,4 +25,47 @@ class JsonMapperTest extends \PHPUnit_Framework_TestCase{
         $this->assertEquals(array("key1" => "value2"), $outputArray);
 
     }
+
+    public function testFirstLevelArrayWithOneElement(){
+        $mapper = new JsonMapper();
+
+        $template = array(
+            "path" => ".",
+            "as" => array(
+                "key1" => "key2",
+            )
+        );
+
+        $input = '[{"key2": "value2"}]';
+
+        $output = $mapper->transformJson($input, $template);
+
+        $outputArray = json_decode($output, true);
+
+        $this->assertEquals( count($outputArray), 1);
+        $this->assertEquals(array("key1" => "value2"), $outputArray[0]);
+
+    }
+
+    public function testFirstLevelArrayWithTwoElements(){
+        $mapper = new JsonMapper();
+
+        $template = array(
+            "path" => ".",
+            "as" => array(
+                "key1" => "key2",
+            )
+        );
+
+        $input = '[{"key2": "value2"},{"key2": "value3"}]';
+
+        $output = $mapper->transformJson($input, $template);
+
+        $outputArray = json_decode($output, true);
+
+        $this->assertEquals( count($outputArray), 2);
+        $this->assertEquals(array("key1" => "value2"), $outputArray[0]);
+        $this->assertEquals(array("key1" => "value3"), $outputArray[1]);
+
+    }
 }
