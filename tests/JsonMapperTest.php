@@ -238,4 +238,39 @@ JSON;
         $this->assertEquals(array("key1" => "string"), $outputArray);
 
     }
+
+    public function testNonStaticFunction()
+    {
+        // Arrange
+        $mockHelper = $this->getMock("Helper", array("func1"));
+        $mockHelper->expects($this->exactly(1)) // correct number of times
+            ->method("func1")            // correct method is called
+            ->with((object)array("key2" => "value2"))   // with correct parameters
+            ->will($this->returnValue("retval"));   // return a value
+
+        $mapper = new JsonMapper($mockHelper);
+
+        $template = array(
+            "path" => ".",
+            "as" => array(
+                "key1" => "func1",
+            )
+        );
+
+        $input = <<<JSON
+{
+   "key2": "value2"
+}
+JSON;
+
+        // Act
+        $output = $mapper->transformJson($input, $template);
+
+        // Assert
+        $outputArray = json_decode($output, true);
+
+        $this->assertEquals(array("key1" => "retval"), $outputArray); // check that return-value of function is set
+
+    }
+
 }
