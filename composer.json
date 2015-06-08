@@ -10,13 +10,14 @@
     }
   ],
   "require-dev": {
-    "phpunit/phpunit": "@stable"
+    "phpunit/phpunit": "@stable",
+    "phpunit/php-code-coverage": "@stable"
   },
   "autoload": {
     "psr-0": {"waqqas\\json2json": "src/"}
   },
   "require": {
-    "php": ">=5.4",
+    "php": ">=5.3",
     "flow/jsonpath": "@stable"
   },
   "repositories": [

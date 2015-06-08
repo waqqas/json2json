@@ -111,7 +111,7 @@ class JsonMapperTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testTwoOutputsAtSecondLevel()
+    public function testTwoOutputsAtFirstLevel()
     {
         // Arrange
         $mapper = new JsonMapper();
@@ -146,6 +146,96 @@ class JsonMapperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(count($outputArray['level2']), 2);
         $this->assertEquals(array("key1" => "value2"), $outputArray['level2'][0]);
         $this->assertEquals(array("key1" => "value3"), $outputArray['level2'][1]);
+
+    }
+
+    public function testOutputAtSecondLevelObject()
+    {
+        // Arrange
+        $mapper = new JsonMapper();
+
+        $template = array(
+            "path" => "data1",
+            "as" => array(
+                "key1" => "key2",
+            )
+        );
+
+        $input = <<<JSON
+{
+   "data1":{
+      "key2":"value2"
+   }
+}
+JSON;
+
+        // Act
+        $output = $mapper->transformJson($input, $template);
+
+        // Assert
+        $outputArray = json_decode($output, true);
+
+
+        $this->assertEquals(array("key1" => "value2"), $outputArray);
+
+    }
+
+
+    public function testSubObjectMapping()
+    {
+        // Arrange
+        $mapper = new JsonMapper();
+
+        $template = array(
+            "path" => ".",
+            "as" => array(
+                "key1" => "key2.subkey",
+            )
+        );
+
+        $input = <<<JSON
+{
+   "key2":{
+      "subkey":"subvalue"
+   }
+}
+JSON;
+
+        // Act
+        $output = $mapper->transformJson($input, $template);
+
+        // Assert
+        $outputArray = json_decode($output, true);
+
+        $this->assertEquals(array("key1" => "subvalue"), $outputArray);
+
+    }
+
+    public function testStringObjectMapping()
+    {
+        // Arrange
+        $mapper = new JsonMapper();
+
+        $template = array(
+            "path" => ".",
+            "as" => array(
+                "key1" => "string",
+            )
+        );
+
+        $input = <<<JSON
+{
+   "key2": "value2"
+}
+JSON;
+
+        // Act
+        $output = $mapper->transformJson($input, $template);
+
+        // Assert
+        $outputArray = json_decode($output, true);
+
+        $this->assertEquals(array("key1" => "string"), $outputArray);
 
     }
 }

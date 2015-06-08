@@ -101,9 +101,9 @@ class JsonMapper
 
             } // check if not empty to ensure valid expression
             else if (!empty($outputTemplate)) {
-                ($outputTemplate == '.')? $outputTemplate = '$': $outputTemplate = "$." . $outputTemplate;
+                ($outputTemplate == '.')? $path = '$': $path = "$." . $outputTemplate;
 
-                $itemValue = (new JSONPath($item))->find($outputTemplate)->data();
+                $itemValue = (new JSONPath($item))->find($path)->data();
                 if (!empty($itemValue)) {
                     $value = $itemValue[0];
                 } else {

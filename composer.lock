@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b40574293b913d9ac498bd7365ee7375",
+    "hash": "f7e8e49674027275e1f3adb186d6e11c",
     "packages": [
         {
             "name": "flow/jsonpath",
@@ -211,16 +211,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "dev-master",
+            "version": "2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "2b2747ae77a183948250c2ea5302b396ae9749fb"
+                "reference": "3703c4bb67c8700957dd41c843254658539d091d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/2b2747ae77a183948250c2ea5302b396ae9749fb",
-                "reference": "2b2747ae77a183948250c2ea5302b396ae9749fb",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/3703c4bb67c8700957dd41c843254658539d091d",
+                "reference": "3703c4bb67c8700957dd41c843254658539d091d",
                 "shasum": ""
             },
             "require": {
@@ -243,7 +243,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2.x-dev"
+                    "dev-master": "2.1.x-dev"
                 }
             },
             "autoload": {
@@ -269,7 +269,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-06-04 07:35:25"
+            "time": "2015-06-06 08:33:23"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -457,16 +457,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.7.0",
+            "version": "4.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "c2241b8d3381be3e4c6125ae347687d59f286784"
+                "reference": "8e0c63329c8c4185296b8d357daa5c6bae43080f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c2241b8d3381be3e4c6125ae347687d59f286784",
-                "reference": "c2241b8d3381be3e4c6125ae347687d59f286784",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/8e0c63329c8c4185296b8d357daa5c6bae43080f",
+                "reference": "8e0c63329c8c4185296b8d357daa5c6bae43080f",
                 "shasum": ""
             },
             "require": {
@@ -525,7 +525,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-06-05 04:14:02"
+            "time": "2015-06-06 08:36:08"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1007,7 +1007,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "flow/jsonpath": 0,
-        "phpunit/phpunit": 0
+        "phpunit/phpunit": 0,
+        "phpunit/php-code-coverage": 0
     },
     "prefer-stable": false,
     "prefer-lowest": false,
