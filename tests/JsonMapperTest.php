@@ -4,6 +4,7 @@ namespace tests;
 
 use waqqas\json2json\JsonMapper;
 
+
 class JsonMapperTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -270,6 +271,34 @@ JSON;
         $outputArray = json_decode($output, true);
 
         $this->assertEquals(array("key1" => "retval"), $outputArray); // check that return-value of function is set
+
+    }
+
+    public function testInvalidPathFunction()
+    {
+        // Arrange
+        $mapper = new JsonMapper();
+
+        $template = array(
+            "path" => ".",
+            "as" => array(
+                "key1" => "key2[]",
+            )
+        );
+
+        $input = <<<JSON
+{
+   "key2": "value2"
+}
+JSON;
+
+        // Act
+        $output = $mapper->transformJson($input, $template);
+
+        // Assert
+        $outputArray = json_decode($output, true);
+
+        $this->assertEquals(array("key1" => "key2[]"), $outputArray); // check that return-value of function is set
 
     }
 

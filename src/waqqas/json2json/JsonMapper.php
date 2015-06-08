@@ -3,6 +3,7 @@
 namespace waqqas\json2json;
 
 use Flow\JSONPath\JSONPath;
+use Flow\JSONPath\JSONPathException;
 
 /**
  * Class JsonMapper
@@ -100,18 +101,21 @@ class JsonMapper
                 $value = $item->$outputTemplate;
 
             } // check if not empty to ensure valid expression
-            else if (!empty($outputTemplate)) {
-                ($outputTemplate == '.')? $path = '$': $path = "$." . $outputTemplate;
+            else{
+                $path = (($outputTemplate == '.')? '$': "$." . $outputTemplate);
+                try {
+                    $jsonPath = new JSONPath($item);
 
-                $itemValue = (new JSONPath($item))->find($path)->data();
-                if (!empty($itemValue)) {
-                    $value = $itemValue[0];
-                } else {
+                    $itemValue = $jsonPath->find($path)->data();
+                    if (!empty($itemValue)) {
+                        $value = $itemValue[0];
+                    } else {
+                        $value = $outputTemplate;
+                    }
+                }
+                catch(JSONPathException $e){
                     $value = $outputTemplate;
                 }
-            } // literal string
-            else {
-                $value = $outputTemplate;
             }
         } // non string values copied as-is
         else {
