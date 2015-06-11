@@ -31,6 +31,8 @@ class JsonMapper
      */
     public function transformJson($inputJson, $template)
     {
+        if( is_string($template))
+            $template = json_decode($template, true);
         return json_encode($this->transformArray(json_decode($inputJson), $template));
     }
 

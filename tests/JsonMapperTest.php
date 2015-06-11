@@ -302,4 +302,27 @@ JSON;
 
     }
 
+    public function testJsonAsTemplate()
+    {
+        // Arrange
+        $mapper = new JsonMapper();
+
+        $template = json_encode(array(
+            "path" => ".",
+            "as" => array(
+                "key1" => "key2",
+            )
+        ));
+
+        $input = '{"key2": "value2"}';
+
+        // Act
+        $output = $mapper->transformJson($input, $template);
+
+        // Assert
+        $outputArray = json_decode($output, true);
+
+        $this->assertEquals(array("key1" => "value2"), $outputArray);
+
+    }
 }
